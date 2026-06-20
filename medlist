@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medication Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        input[type="text"] {
+            width: 95%;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Medication Administration Log</h1>
+
+    <table>
+        <tr>
+            <th>Medication</th>
+            <th>Dosage</th>
+            <th>Scheduled Time</th>
+            <th>Given?</th>
+            <th>Time Given</th>
+            <th>Notes</th>
+        </tr>
+
+        <tr>
+            <td>Aspirin</td>
+            <td>81 mg</td>
+            <td>08:00 AM</td>
+            <td><input type="checkbox"></td>
+            <td><input type="time"></td>
+            <td><input type="text"></td>
+        </tr>
+
+        <tr>
+            <td>Medication 2</td>
+            <td>500 mg</td>
+            <td>12:00 PM</td>
+            <td><input type="checkbox"></td>
+            <td><input type="time"></td>
+            <td><input type="text"></td>
+        </tr>
+
+        <tr>
+            <td>Medication 3</td>
+            <td>10 mg</td>
+            <td>06:00 PM</td>
+            <td><input type="checkbox"></td>
+            <td><input type="time"></td>
+            <td><input type="text"></td>
+        </tr>
+
+    </table>
+
+</body>
+</html>
