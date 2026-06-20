@@ -1,82 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medication Tracker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medication Tracker</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        h1 {
-            text-align: center;
-        }
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f7fa;
+    padding: 30px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+.container {
+    max-width: 900px;
+    margin: auto;
+}
 
-        th, td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-        }
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+}
 
-        th {
-            background-color: lightgray;
-        }
+.med-card {
+    background: #ffffff;
+    border-left: 8px solid #9ca3af;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    transition: .3s;
+}
 
-        input[type="text"] {
-            width: 95%;
-        }
-    </style>
+.med-card.ready {
+    border-left-color: #22c55e;
+}
+
+.med-card.given {
+    border-left-color: #15803d;
+    background: #ecfdf5;
+}
+
+.med-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.med-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.ready .status {
+    color: #22c55e;
+}
+
+.given .status {
+    color: #15803d;
+}
+
+.pending .status {
+    color: #6b7280;
+}
+
+.med-details {
+    margin-top: 10px;
+    color: #555;
+}
+
+.controls {
+    margin-top: 15px;
+}
+
+button {
+    background: #22c55e;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #16a34a;
+}
+
+.time-given {
+    margin-top: 10px;
+    color: #15803d;
+    font-weight: bold;
+}
+</style>
 </head>
 <body>
 
-    <h1>Medication Administration Log</h1>
+<div class="container">
 
-    <table>
-        <tr>
-            <th>Medication</th>
-            <th>Dosage</th>
-            <th>Scheduled Time</th>
-            <th>Given?</th>
-            <th>Time Given</th>
-            <th>Notes</th>
-        </tr>
+    <h1>Medication Administration Tracker</h1>
 
-        <tr>
-            <td>Aspirin</td>
-            <td>81 mg</td>
-            <td>08:00 AM</td>
-            <td><input type="checkbox"></td>
-            <td><input type="time"></td>
-            <td><input type="text"></td>
-        </tr>
+    <div class="med-card ready pending" id="med1">
 
-        <tr>
-            <td>Medication 2</td>
-            <td>500 mg</td>
-            <td>12:00 PM</td>
-            <td><input type="checkbox"></td>
-            <td><input type="time"></td>
-            <td><input type="text"></td>
-        </tr>
+        <div class="med-header">
+            <span class="med-name">Aspirin 81mg</span>
+            <span class="status">READY</span>
+        </div>
 
-        <tr>
-            <td>Medication 3</td>
-            <td>10 mg</td>
-            <td>06:00 PM</td>
-            <td><input type="checkbox"></td>
-            <td><input type="time"></td>
-            <td><input type="text"></td>
-        </tr>
+        <div class="med-details">
+            Scheduled Time: 8:00 AM
+        </div>
 
-    </table>
+        <div class="controls">
+            <button onclick="giveMedication('med1')">
+                Mark as Given
+            </button>
+        </div>
+
+        <div class="time-given"></div>
+
+    </div>
+
+    <div class="med-card pending" id="med2">
+
+        <div class="med-header">
+            <span class="med-name">Vitamin D</span>
+            <span class="status">PENDING</span>
+        </div>
+
+        <div class="med-details">
+            Scheduled Time: 12:00 PM
+        </div>
+
+        <div class="controls">
+            <button onclick="giveMedication('med2')">
+                Mark as Given
+            </button>
+        </div>
+
+        <div class="time-given"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+function giveMedication(id) {
+
+    const card = document.getElementById(id);
+
+    card.classList.remove('pending');
+    card.classList.add('given');
+
+    card.querySelector('.status').textContent = 'GIVEN';
+
+    const timestamp = new Date().toLocaleTimeString();
+
+    card.querySelector('.time-given').textContent =
+        'Administered: ' + timestamp;
+
+}
+
+</script>
 
 </body>
 </html>
