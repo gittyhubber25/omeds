@@ -1,19 +1,15 @@
-<script>
-  function giveMedication(id) {
-    const card = document.getElementById(id);
-    card.classList.remove('pending');
-    card.classList.add('given');
-    card.querySelector('.status').textContent = 'GIVEN';
-    const timestamp = new Date().toLocaleTimeString();
-    card.querySelector('.time-given').textContent =
-        'Administered: ' + timestamp;
-  }
-</script>
+function giveMedication(id) {
+  const card = document.getElementById(id);
+  card.classList.remove('pending');
+  card.classList.add('given');
+  card.querySelector('.status').textContent = 'GIVEN';
+  const timestamp = new Date().toLocaleTimeString();
+  card.querySelector('.time-given').textContent = 'Administered: ' + timestamp;
+}
 
-<script>
-    function givePRN(id, hours) {
-      const card = document.getElementById(id);
-      const now = new Date();
+function givePRN(id, hours) {
+  const card = document.getElementById(id);
+  const now = new Date();
       const availableAgain = new Date(
             now.getTime() +
             hours * 60 * 60 * 1000
