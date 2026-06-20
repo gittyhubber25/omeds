@@ -96,6 +96,15 @@ h1 {
     color: #15803d;
 }
 
+.not-ready .status {
+    color: #dc2626;
+}
+
+.med-card.not-ready {
+    border-left-color: #dc2626;
+    background: #fef2f2;
+}
+
 .pending .status {
     color: #6b7280;
 }
@@ -545,6 +554,68 @@ button:hover {
         </div>
 
         <div class="time-given"></div>
+
+    </div>
+
+    <div class="section-title">
+    🚨 PRN Medications (As Needed)
+    </div>
+
+    <div class="med-card not-ready" id="prn1">
+
+    <div class="med-header">
+        <div class="med-info">
+            <span class="med-name">Hydromorphine (Dilaudid) 2mg</span>
+            <span class="instructions">Give 1 tablet every 6 hours</span>
+            <span class="reason">Reason: Pain</span>
+        </div>
+
+        <span class="status">READY</span>
+
+    </div>
+
+    <div class="med-details">
+        Last Given: Never
+    </div>
+
+    <div class="controls">
+
+        <button onclick="givePRN('prn1')">
+            Administer PRN
+        </button>
+
+    </div>
+
+    <div class="time-given"></div>
+
+    </div>
+
+    <div class="med-card not-ready" id="prn2">
+
+    <div class="med-header">
+        <div class="med-info">
+            <span class="med-name">Senna 8.6mg</span>
+            <span class="instructions">Give 1 tablet at bedtime</span>
+            <span class="reason">Reason: Constipation</span>
+        </div>
+
+        <span class="status">READY</span>
+
+    </div>
+
+    <div class="med-details">
+        Last Given: Never
+    </div>
+
+    <div class="controls">
+
+        <button onclick="givePRN('prn2')">
+            Administer PRN
+        </button>
+
+    </div>
+
+    <div class="time-given"></div>
 
     </div>
     
