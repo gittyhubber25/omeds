@@ -779,22 +779,41 @@ function restorePRNs() {
             'Available Again: ' +
             availableAgain.toLocaleTimeString();
 
-        if (now < data.availableAgain) {
+    if (now < data.availableAgain) {
 
-            card.classList.remove('ready');
-            card.classList.add('not-ready');
+        card.classList.remove('ready');
+        card.classList.add('not-ready');
 
-            card.querySelector('.status').textContent =
-                'NOT READY';
+        card.querySelector('.status').textContent =
+            'NOT READY';
 
-        } else {
+        const timeRemaining =
+            data.availableAgain - now;
+
+        setTimeout(function() {
 
             card.classList.remove('not-ready');
             card.classList.add('ready');
 
             card.querySelector('.status').textContent =
                 'READY';
-        }
+
+            card.querySelector('.available-again').textContent =
+                'Available Again: Ready Now';
+
+        }, timeRemaining);
+
+    } else {
+
+        card.classList.remove('not-ready');
+        card.classList.add('ready');
+
+        card.querySelector('.status').textContent =
+            'READY';
+
+        card.querySelector('.available-again').textContent =
+            'Available Again: Ready Now';
+    }
 
     });
 
