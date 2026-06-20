@@ -149,7 +149,7 @@ button:hover {
     🌅 Morning Medications (7:00 AM)
     </div>
 
-    <div class="med-card ready pending" id="med1">
+    <div class="med-card pending" id="med1">
 
         <div class="med-header">
             <div class="med-info">
@@ -586,7 +586,7 @@ button:hover {
     🚨 PRN Medications (As Needed)
     </div>
 
-    <div class="med-card ready pending" id="prn1">
+    <div class="med-card ready" id="prn1">
 
     <div class="med-header">
         <div class="med-info">
@@ -599,13 +599,16 @@ button:hover {
 
     </div>
 
-    <div class="med-details">
+    <div class="med-details last-given">
         Last Given: Never
+    </div>
+    <div class="med-details available-again">
+        Available Again: Ready Now
     </div>
 
     <div class="controls">
 
-        <button onclick="givePRN('prn1, 6')">
+        <button onclick="givePRN('prn1', 6)">
             Administer PRN
         </button>
 
@@ -615,7 +618,7 @@ button:hover {
 
     </div>
 
-    <div class="med-card ready pending" id="prn2">
+    <div class="med-card ready" id="prn2">
 
     <div class="med-header">
         <div class="med-info">
@@ -628,8 +631,11 @@ button:hover {
 
     </div>
 
-    <div class="med-details">
+    <div class="med-details last-given">
         Last Given: Never
+    </div>
+    <div class="med-details available-again">
+        Available Again: Ready Now
     </div>
 
     <div class="controls">
@@ -643,6 +649,42 @@ button:hover {
     <div class="time-given"></div>
 
     </div>
+
+    <div class="med-card ready" id="prn3">
+
+    <div class="med-header">
+        <div class="med-info">
+            <span class="med-name">TESTING</span>
+            <span class="instructions">Give 1 test per test</span>
+            <span class="reason">Reason: Testing</span>
+        </div>
+
+        <span class="status">READY</span>
+
+    </div>
+
+    <div class="med-details last-given">
+        Last Given: Never
+    </div>
+    <div class="med-details available-again">
+        Available Again: Ready Now
+    </div>
+
+    <div class="controls">
+
+        <button onclick="givePRN('prn3', 8)">
+            Administer PRN
+        </button>
+
+    </div>
+
+    <div class="time-given"></div>
+
+    </div>
+
+    <button onclick="clearPRNHistory()">
+    Reset PRN History
+    </button>
     
 </div>
 
@@ -667,28 +709,94 @@ function giveMedication(id) {
 </script>
 
 <script>
-function givePRN(id, hours) {
+    function givePRN(id, hours) {
+        const card = document.getElementById(id);
+        const now = new Date();
+        const availableAgain = new Date(
+                now.getTime() + (hours * 60 * 60 * 1000)
+            );
+        const medicationData = {
+            lastGiven: now.getTime(),
+            availableAgain: availableAgain.getTime()
+        };
 
-    const card = document.getElementById(id);
+        localStorage.setItem(
+            id,
+            JSON.stringify(medicationData)
+        );
 
-    card.classList.remove('ready');
-    card.classList.add('not-ready');
+        card.classList.remove('ready');
+        card.classList.add('not-ready');
 
-    card.querySelector('.status').textContent = 'NOT READY';
+        card.querySelector('.status').textContent = 'NOT READY';
 
-    const now = new Date();
+        card.querySelector('.last-given').textContent =
+            'Last Given: ' + now.toLocaleTimeString();
 
-    card.querySelector('.time-given').textContent =
-        'Last Given: ' + now.toLocaleTimeString();
+        card.querySelector('.available-again').textContent =
+            'Available Again: ' +
+            availableAgain.toLocaleTimeString();
+    }
+</script>
 
-    setTimeout(function() {
+<script>
+    function clearPRNHistory() {
+        localStorage.clear();
+        location.reload();
+    }
+</script>
 
-        card.classList.remove('not-ready');
-        card.classList.add('ready');
+<script>
+window.addEventListener('load', restorePRNs);
 
-        card.querySelector('.status').textContent = 'READY';
+function restorePRNs() {
 
-    }, hours * 60 * 60 * 1000);
+    const prnCards = document.querySelectorAll('[id^="prn"]');
+
+    prnCards.forEach(function(card) {
+
+        const storedData =
+            localStorage.getItem(card.id);
+
+        if (!storedData) return;
+        
+
+        const data = JSON.parse(storedData);
+
+        const now = Date.now();
+
+        const lastGiven =
+            new Date(data.lastGiven);
+
+        const availableAgain =
+            new Date(data.availableAgain);
+
+        card.querySelector('.last-given').textContent =
+            'Last Given: ' +
+            lastGiven.toLocaleTimeString();
+
+        card.querySelector('.available-again').textContent =
+            'Available Again: ' +
+            availableAgain.toLocaleTimeString();
+
+        if (now < data.availableAgain) {
+
+            card.classList.remove('ready');
+            card.classList.add('not-ready');
+
+            card.querySelector('.status').textContent =
+                'NOT READY';
+
+        } else {
+
+            card.classList.remove('not-ready');
+            card.classList.add('ready');
+
+            card.querySelector('.status').textContent =
+                'READY';
+        }
+
+    });
 
 }
 </script>
