@@ -51,7 +51,13 @@ h1 {
 .med-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.med-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .med-name {
@@ -114,7 +120,9 @@ button:hover {
     <div class="med-card ready pending" id="med1">
 
         <div class="med-header">
-            <span class="med-name">Pantoprazole (Protonix) 40mg</span>
+            <span class="med-name">
+                Pantoprazole (Protonix) 40mg
+            </span>
             <span class="instructions">
                 Give 1 tablet
             </span>
