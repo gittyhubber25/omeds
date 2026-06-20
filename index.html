@@ -666,5 +666,32 @@ function giveMedication(id) {
 
 </script>
 
+<script>
+function givePRN(id, hours) {
+
+    const card = document.getElementById(id);
+
+    card.classList.remove('ready');
+    card.classList.add('not-ready');
+
+    card.querySelector('.status').textContent = 'NOT READY';
+
+    const now = new Date();
+
+    card.querySelector('.time-given').textContent =
+        'Last Given: ' + now.toLocaleTimeString();
+
+    setTimeout(function() {
+
+        card.classList.remove('not-ready');
+        card.classList.add('ready');
+
+        card.querySelector('.status').textContent = 'READY';
+
+    }, hours * 60 * 60 * 1000);
+
+}
+</script>
+
 </body>
 </html>
