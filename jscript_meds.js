@@ -1,5 +1,12 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbx7ltYQuDARGGKfGHIR6jcRvXQsfMzrweaV4i8pAiWhyBxN0GmaSIVqn7jYfHf9nhSd/exec';
 
+async function loadMeds() {
+  const response = await fetch('https://script.google.com/macros/s/AKfycbx7ltYQuDARGGKfGHIR6jcRvXQsfMzrweaV4i8pAiWhyBxN0GmaSIVqn7jYfHf9nhSd/exec');
+  const data = await response.json();
+  console.log(data);
+}
+loadMeds();
+
 function giveMedication(id) {
   const card = document.getElementById(id);
   card.classList.remove('pending');
@@ -62,13 +69,6 @@ function restorePRNs() {
   }
 });
 }
-
-async function loadMeds() {
-  const response = await fetch('https://script.google.com/macros/s/AKfycbxtugFHePScrkam3b1hdeu869zrbiLGqpS9aGLM0klgD_CYZMPrCJXyhnBnyZC5Rxv2/exec');
-  const data = await response.json();
-  console.log(data);
-}
-loadMeds();
 
 async function updateMedication(id, status, lastGiven, availableAgain) {
   await fetch('https://script.google.com/macros/s/AKfycbxtugFHePScrkam3b1hdeu869zrbiLGqpS9aGLM0klgD_CYZMPrCJXyhnBnyZC5Rxv2/exec', {
