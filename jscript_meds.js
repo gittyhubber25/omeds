@@ -50,13 +50,14 @@ function givePRN(id, hours) {
           lastGiven: now.getTime(),
           availableAgain: availableAgain.getTime()
       };
-      localStorage.setItem(id, JSON.stringify(medicationData));
-      card.classList.remove('ready');
-      card.classList.add('not-ready');
-      card.querySelector('.status').textContent = 'NOT READY';
-      card.querySelector('.last-given').textContent = 'Last Given: ' + now.toLocaleTimeString();
-      card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain.toLocaleTimeString();
+    localStorage.setItem(id, JSON.stringify(medicationData));
+    card.classList.remove('ready');
+    card.classList.add('not-ready');
+    card.querySelector('.status').textContent = 'NOT READY';
+    card.querySelector('.last-given').textContent = 'Last Given: ' + now.toLocaleTimeString();
+    card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain.toLocaleTimeString();
 }
+console.log("Clicked PRN:", id, "hours:", hours, "card found:", card);
 
 function clearPRNHistory() {
   localStorage.clear();
