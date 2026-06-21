@@ -3,7 +3,24 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbx7ltYQuDARGGKfGHIR6jcR
 async function loadMeds() {
   const response = await fetch('https://script.google.com/macros/s/AKfycbx7ltYQuDARGGKfGHIR6jcRvXQsfMzrweaV4i8pAiWhyBxN0GmaSIVqn7jYfHf9nhSd/exec');
   const data = await response.json();
-  console.log(data);
+  for (let i = 1; i < data.length; i++) {
+    const id = data[i][0];
+    const status = data[i][2];
+    const lastGiven = data[i][3];
+    const availableAgain = data[i][4];
+    const card = document.getElementById(id);
+    if (!card) continue;
+    card.querySelector('.status').textContent = status;
+    card.querySelector('.last-given').textContent = 'Last Given: ' + lastGiven;
+    card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain;
+    if (status === 'READY') {
+      card.classList.remove('not-ready');
+      card.classList.add('ready');
+    } else {
+      card.classList.remove('ready');
+      card.classList.add('not-ready');
+    }
+  }
 }
 loadMeds();
 
