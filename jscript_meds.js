@@ -4,8 +4,8 @@ async function loadMeds() {
   const response = await fetch('https://script.google.com/macros/s/AKfycbx7ltYQuDARGGKfGHIR6jcRvXQsfMzrweaV4i8pAiWhyBxN0GmaSIVqn7jYfHf9nhSd/exec');
   const data = await response.json();
   for (let i = 1; i < data.length; i++) {
-    const id = data[i][0];
-    const status = data[i][2];
+    const id = String(data[i][0]).trim();
+    let status = data[i][2];
     const lastGiven = data[i][3];
     const availableAgain = data[i][4];
     const card = document.getElementById(id);
