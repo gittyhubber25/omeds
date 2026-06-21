@@ -20,17 +20,22 @@ async function loadMeds() {
     card.querySelector('.status').textContent = status;
     card.querySelector('.last-given').textContent = 'Last Given: ' + lastGiven;
     if (status === 'READY') {
-      card.querySelector('.available-again').textContent = 'Available Again: Ready Now';
-      card.classList.remove('not-ready');
-      card.classList.add('ready');
-      card.querySelector('button').style.display = 'inline-block';
-    } else {
-      card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain;
-      card.classList.remove('ready');
-      card.classList.add('not-ready');
-      card.querySelector('button').style.display = 'none';
-      startCountdown(card, availableDate.getTime());
-    }
+      if (card.countdownTimer) {
+        clearInterval(card.countdownTimer);
+        card.countdownTimer = null;
+        }
+        card.querySelector('.available-again').textContent = 'Available Again: Ready Now';
+        card.classList.remove('not-ready');
+        card.classList.add('ready');
+        const button = card.querySelector('button');
+        if (button) button.style.display = 'inline-block';
+      } else {
+        card.classList.remove('ready');
+        card.classList.add('not-ready');
+        const button = card.querySelector('button');
+        if (button) button.style.display = 'none';
+        startCountdown(card, availableTime);
+      }
   }
 }
 loadMeds();
