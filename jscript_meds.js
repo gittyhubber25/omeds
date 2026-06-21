@@ -1,3 +1,5 @@
+const API_URL = 'https://script.google.com/macros/s/AKfycbx7ltYQuDARGGKfGHIR6jcRvXQsfMzrweaV4i8pAiWhyBxN0GmaSIVqn7jYfHf9nhSd/exec';
+
 function giveMedication(id) {
   const card = document.getElementById(id);
   card.classList.remove('pending');
