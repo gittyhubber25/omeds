@@ -438,17 +438,14 @@
     </div>
 
     <div class="med-card ready" id="prn1">
-
-    <div class="med-header">
-        <div class="med-info">
-            <span class="med-name">Hydromorphine (Dilaudid) 2mg</span>
-            <span class="instructions">Give 1 tablet every 6 hours</span>
-            <span class="reason">Reason: Pain</span>
+        <div class="med-header">
+            <div class="med-info">
+                <span class="med-name">Hydromorphine (Dilaudid) 2mg</span>
+                <span class="instructions">Give 1 tablet every 6 hours</span>
+                <span class="reason">Reason: Pain</span>
+            </div>
+            <span class="status">READY</span>
         </div>
-
-        <span class="status">READY</span>
-
-    </div>
 
     <div class="med-details last-given">
         Last Given: Never
@@ -456,75 +453,54 @@
     <div class="med-details available-again">
         Available Again: Ready Now
     </div>
-
     <div class="controls">
-
-        <button onclick="givePRN('prn1', 6)">
-            Administer PRN
-        </button>
-
+        <button onclick="givePRN('prn1', 6)">Administer PRN</button>
     </div>
-
     <div class="time-given"></div>
-
     </div>
 
     <div class="med-card ready" id="prn2">
-
-    <div class="med-header">
-        <div class="med-info">
-            <span class="med-name">Senna 8.6mg</span>
-            <span class="instructions">Give 1 tablet at bedtime</span>
-            <span class="reason">Reason: Constipation</span>
+        <div class="med-header">
+            <div class="med-info">
+                <span class="med-name">Senna 8.6mg</span>
+                <span class="instructions">Give 1 tablet at bedtime</span>
+                <span class="reason">Reason: Constipation</span>
+            </div>
+            <span class="status">READY</span>
         </div>
-
-        <span class="status">READY</span>
-
-    </div>
-
-    <div class="med-details last-given">
-        Last Given: Never
-    </div>
-    <div class="med-details available-again">
-        Available Again: Ready Now
-    </div>
-
-    <div class="controls">
-
-        <button onclick="givePRN('prn2')">
-            Administer PRN
-        </button>
-
-    </div>
-
-    <div class="time-given"></div>
-
+        <div class="med-details last-given">
+            Last Given: Never
+        </div>
+        <div class="med-details available-again">
+            Available Again: Ready Now
+        </div>
+        <div class="controls">
+            <button onclick="givePRN('prn2')">Administer PRN</button>
+        </div>
+        <div class="time-given"></div>
     </div>
 
     <div class="med-card ready" id="prn3">
-
-    <div class="med-header">
-        <div class="med-info">
-            <span class="med-name">TESTING</span>
-            <span class="instructions">Give 1 test per test</span>
-            <span class="reason">Reason: Testing</span>
+        <div class="med-header">
+            <div class="med-info">
+                <span class="med-name">TESTING</span>
+                <span class="instructions">Give 1 test per test</span>
+                <span class="reason">Reason: Testing</span>
+            </div>
+            <span class="status">READY</span>
         </div>
-
-        <span class="status">READY</span>
-
+        <div class="med-details last-given">
+            Last Given: Never
+        </div>
+        <div class="med-details available-again">
+            Available Again: Ready Now
+        </div>
+        <div class="controls">
+            <button onclick="givePRN('prn3', 0.0014)">Administer PRN</button>
+        </div>
+        <div class="time-given"></div>
     </div>
-
-    <div class="med-details last-given">
-        Last Given: Never
-    </div>
-    <div class="med-details available-again">
-        Available Again: Ready Now
-    </div>
-    <div class="controls">
-        <button onclick="givePRN('prn3', 8)">Administer PRN</button>
-    </div>
-    <div class="time-given"></div>
-    </div>
+    
     <button onclick="clearPRNHistory()">
     Reset PRN History
     </button>
