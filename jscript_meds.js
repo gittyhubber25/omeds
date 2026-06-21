@@ -39,6 +39,7 @@ async function loadMeds() {
   }
 }
 loadMeds();
+setInterval(loadMeds, 5000);
 
 function giveMedication(id) {
   const card = document.getElementById(id);
@@ -71,38 +72,6 @@ function givePRN(id, hours) {
 function clearPRNHistory() {
   localStorage.clear();
   location.reload();
-}
-
-window.addEventListener('load', restorePRNs);
-function restorePRNs() {
-  const prnCards = document.querySelectorAll('[id^="prn"]');
-  prnCards.forEach(function(card) {
-  const storedData = localStorage.getItem(card.id);
-  if (!storedData) return;
-  const data = JSON.parse(storedData);
-  const now = Date.now();
-  const lastGiven = new Date(data.lastGiven);
-  const availableAgain = new Date(data.availableAgain);
-  card.querySelector('.last-given').textContent = 'Last Given: ' + lastGiven.toLocaleTimeString();
-  card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain.toLocaleTimeString();
-  if (now < data.availableAgain) {
-    card.classList.remove('ready');
-    card.classList.add('not-ready');
-    card.querySelector('.status').textContent = 'NOT READY';
-    const timeRemaining = data.availableAgain - now;
-    setTimeout(function() {
-      card.classList.remove('not-ready');
-      card.classList.add('ready');
-      card.querySelector('.status').textContent = 'READY';
-      card.querySelector('.available-again').textContent = 'Available Again: Ready Now';
-    }, timeRemaining);
-  } else {
-    card.classList.remove('not-ready');
-    card.classList.add('ready');
-    card.querySelector('.status').textContent = 'READY';
-    card.querySelector('.available-again').textContent = 'Available Again: Ready Now';
-  }
-});
 }
 
 async function updateMedication(id, status, lastGiven, availableAgain) {
@@ -155,5 +124,3 @@ function startCountdown(card, availableTime) {
     availableText.textContent = `Available Again: ${hrs}h ${mins}m ${secs}s`;
   }, 1000);
 }
-
-setInterval(loadMeds, 30000);
