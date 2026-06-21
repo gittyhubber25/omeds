@@ -10,13 +10,21 @@ async function loadMeds() {
     const availableAgain = data[i][4];
     const card = document.getElementById(id);
     if (!card) continue;
+    const availableDate = new Date(availableAgain);
+    const now = new Date();
+    if (!isNaN(availableDate) && now < availableDate) {
+      status = 'NOT READY';
+    } else if (!isNaN(availableDate) && now >= availableDate) {
+      status = 'READY';
+    }
     card.querySelector('.status').textContent = status;
     card.querySelector('.last-given').textContent = 'Last Given: ' + lastGiven;
-    card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain;
     if (status === 'READY') {
+      card.querySelector('.available-again').textContent = 'Available Again: Ready Now';
       card.classList.remove('not-ready');
       card.classList.add('ready');
     } else {
+      card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain;
       card.classList.remove('ready');
       card.classList.add('not-ready');
     }
