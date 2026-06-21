@@ -100,4 +100,4 @@ async function updateMedication(id, status, lastGiven, availableAgain) {
   });
 }
 
-setInterval(loadMeds, 5000);
+setInterval(loadMeds, 30000);
