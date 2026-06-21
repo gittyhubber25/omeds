@@ -57,7 +57,7 @@ function givePRN(id, hours) {
     card.querySelector('.last-given').textContent = 'Last Given: ' + now.toLocaleTimeString();
     card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain.toLocaleTimeString();
 }
-console.log("Clicked PRN:", id, "hours:", hours, "card found:", card);
+console.log("Clicked PRN:", document.getElementById(id), "hours:", hours, "card found:", card);
 
 function clearPRNHistory() {
   localStorage.clear();
