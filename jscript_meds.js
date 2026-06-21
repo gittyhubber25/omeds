@@ -23,10 +23,13 @@ async function loadMeds() {
       card.querySelector('.available-again').textContent = 'Available Again: Ready Now';
       card.classList.remove('not-ready');
       card.classList.add('ready');
+      card.querySelector('button').style.display = 'inline-block';
     } else {
       card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain;
       card.classList.remove('ready');
       card.classList.add('not-ready');
+      card.querySelector('button').style.display = 'none';
+      startCountdown(card, availableDate.getTime());
     }
   }
 }
@@ -43,21 +46,22 @@ function giveMedication(id) {
 
 function givePRN(id, hours) {
   const card = document.getElementById(id);
+  const button = card.querySelector('button');
   const now = new Date();
-    const availableAgain = new Date(now.getTime() + hours * 60 * 60 * 1000);
-    updateMedication(id, 'NOT READY', now.toLocaleString(), availableAgain.toLocaleString());
-      const medicationData = {
-          lastGiven: now.getTime(),
-          availableAgain: availableAgain.getTime()
-      };
-    localStorage.setItem(id, JSON.stringify(medicationData));
-    card.classList.remove('ready');
-    card.classList.add('not-ready');
-    card.querySelector('.status').textContent = 'NOT READY';
-    card.querySelector('.last-given').textContent = 'Last Given: ' + now.toLocaleTimeString();
-    card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain.toLocaleTimeString();
+  const availableAgain = new Date(now.getTime() + hours * 60 * 60 * 1000);
+  updateMedication(id, 'NOT READY', formatDateTime(now), formatDateTime(availableAgain));
+  localStorage.setItem(id, JSON.stringify({
+    lastGiven: now.getTime(),
+    availableAgain: availableAgain.getTime()
+  }));
+  card.classList.remove('ready');
+  card.classList.add('not-ready');
+  card.querySelector('.status').textContent = 'NOT READY';
+  card.querySelector('.last-given').textContent = 'Last Given: ' + formatDateTime(now);
+  card.querySelector('.available-again').textContent = 'Available Again: ' + formatDateTime(availableAgain);
+  button.style.display = 'none';
+  startCountdown(card, availableAgain.getTime());
 }
-console.log("Clicked PRN:", document.getElementById(id), "hours:", hours, "card found:", card);
 
 function clearPRNHistory() {
   localStorage.clear();
@@ -107,6 +111,40 @@ async function updateMedication(id, status, lastGiven, availableAgain) {
       availableAgain: availableAgain
     })
   });
+}
+
+function formatDateTime(date) {
+  return date.toLocaleString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+}
+
+function startCountdown(card, availableTime) {
+  const button = card.querySelector('button');
+  const availableText = card.querySelector('.available-again');
+  const timer = setInterval(function () {
+    const now = Date.now();
+    const remaining = availableTime - now;
+    if (remaining <= 0) {
+      clearInterval(timer);
+      card.classList.remove('not-ready');
+      card.classList.add('ready');
+      card.querySelector('.status').textContent = 'READY';
+      availableText.textContent = 'Available Again: Ready Now';
+      button.style.display = 'inline-block';
+      return;
+    }
+    const totalSeconds = Math.floor(remaining / 1000);
+    const hrs = Math.floor(totalSeconds / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+    availableText.textContent = `Available Again: ${hrs}h ${mins}m ${secs}s`;
+  }, 1000);
 }
 
 setInterval(loadMeds, 30000);
