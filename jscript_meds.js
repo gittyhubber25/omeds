@@ -11,10 +11,10 @@ async function loadMeds() {
     const card = document.getElementById(id);
     if (!card) continue;
     const availableDate = new Date(availableAgain);
-    const now = new Date();
-    if (!isNaN(availableDate) && now < availableDate) {
+    const availableTime = availableDate.getTime();
+    if (!isNaN(availableTime) && now < availableDate) {
       status = 'NOT READY';
-    } else if (!isNaN(availableDate) && now >= availableDate) {
+    } else {
       status = 'READY';
     }
     card.querySelector('.status').textContent = status;
@@ -125,18 +125,22 @@ function formatDateTime(date) {
 }
 
 function startCountdown(card, availableTime) {
+  if (!availableTime || isNaN(availableTime)) return;
+  if (card.countdownTimer) {
+    clearInterval(card.countdownTimer);
+  }
   const button = card.querySelector('button');
   const availableText = card.querySelector('.available-again');
-  const timer = setInterval(function () {
-    const now = Date.now();
-    const remaining = availableTime - now;
+  card.countdownTimer = setInterval(function () {
+    const remaining = availableTime - Date.now();
     if (remaining <= 0) {
-      clearInterval(timer);
+      clearInterval(card.countdownTimer);
+      card.countdownTimer = null;
       card.classList.remove('not-ready');
       card.classList.add('ready');
       card.querySelector('.status').textContent = 'READY';
       availableText.textContent = 'Available Again: Ready Now';
-      button.style.display = 'inline-block';
+      if (button) button.style.display = 'inline-block';
       return;
     }
     const totalSeconds = Math.floor(remaining / 1000);
