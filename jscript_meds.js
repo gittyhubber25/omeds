@@ -90,14 +90,14 @@ function restorePRNs() {
 async function updateMedication(id, status, lastGiven, availableAgain) {
   await fetch('https://script.google.com/macros/s/AKfycbxtugFHePScrkam3b1hdeu869zrbiLGqpS9aGLM0klgD_CYZMPrCJXyhnBnyZC5Rxv2/exec', {
     method: 'POST',
+    mode: 'no-cors',
     body: JSON.stringify({
       id: id,
       status: status,
       lastGiven: lastGiven,
       availableAgain: availableAgain
     })
-  }
-    );
+  });
 }
 
 setInterval(loadMeds, 5000);
