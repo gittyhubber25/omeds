@@ -2,8 +2,7 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbxtugFHePScrkam3b1hdeu8
 
 console.log('Loading meds...', new Date());
 async function loadMeds() {
-  const response = await fetch(API_URL + '?t=' + Date.now(), {
-  });
+  const response = await fetch(API_URL + '?t=' + Date.now());
   const data = await response.json();
   for (let i = 1; i < data.length; i++) {
     const id = String(data[i][0]).trim();
@@ -13,9 +12,12 @@ async function loadMeds() {
     const card = document.getElementById(id);
     if (!card) continue;
     const button = card.querySelector('button');
-    card.querySelector('.status').textContent = status;
-    card.querySelector('.last-given').textContent = 'Last Given: ' + lastGiven;
-    card.querySelector('.available-again').textContent = 'Available Again: ' + availableAgain;
+    const statusEl = card.querySelector('.status');
+    const lastGivenEl = card.querySelector('.last-given');
+    const availableAgainEl = card.querySelector('.available-again');\
+    if (statusEl) statusEl.textContent = status;
+    if (lastGivenEl) lastGivenEl.textContent = 'Last Given: ' + lastGiven;
+    if (availableAgainEl) availableAgainEl.textContent = 'Available Again: ' + availableAgain;
     if (status === 'READY') {
       card.classList.remove('not-ready');
       card.classList.add('ready');
