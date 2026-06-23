@@ -1,14 +1,15 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbxtugFHePScrkam3b1hdeu869zrbiLGqpS9aGLM0klgD_CYZMPrCJXyhnBnyZC5Rxv2/exec';
 
 async function loadMeds() {
-  const response = await fetch(API_URL + '?t=' + Date.now());
+  const response = await fetch(API_URL + '?t=' + Date.now(), {
+    cache: 'no-store'
+  });
   const data = await response.json();
-  const now = new Date();
   for (let i = 1; i < data.length; i++) {
     const id = String(data[i][0]).trim();
-    let status = String(data[i][2]).trim();
-    const lastGiven = data[i][3];
-    const availableAgain = data[i][4];
+    const status = String(data[i][2]).trim();
+    const lastGiven = data[i][3] || 'Never';
+    const availableAgain = data[i][4] || 'Ready Now';
     const card = document.getElementById(id);
     if (!card) continue;
     const button = card.querySelector('button');
@@ -28,6 +29,10 @@ async function loadMeds() {
 }
 
 function givePRN(id, hours) {
+  if (!hours) {
+    alert('Missing PRN hour value for ' + id);
+    return;
+  }
   const card = document.getElementById(id);
   const button = card.querySelector('button');
   const now = new Date();
@@ -54,6 +59,7 @@ async function updateMedication(id, status, lastGiven, availableAgain) {
       availableAgain
     })
   });
+  setTimeout(loadMeds, 1000);
 }
 
 function formatDateTime(date) {
@@ -66,6 +72,7 @@ function formatDateTime(date) {
     second: '2-digit'
   });
 }
-
-loadMeds();
-setInterval(loadMeds, 5000);
+document.addEventListener('DOMContentLoaded', function () {
+  loadMeds();
+  setInterval(loadMeds, 5000);
+});
