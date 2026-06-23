@@ -3,7 +3,6 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbxtugFHePScrkam3b1hdeu8
 console.log('Loading meds...', new Date());
 async function loadMeds() {
   const response = await fetch(API_URL + '?t=' + Date.now(), {
-    cache: 'no-store'
   });
   const data = await response.json();
   for (let i = 1; i < data.length; i++) {
