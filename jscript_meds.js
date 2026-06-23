@@ -1,6 +1,7 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbxtugFHePScrkam3b1hdeu869zrbiLGqpS9aGLM0klgD_CYZMPrCJXyhnBnyZC5Rxv2/exec';
 
 async function loadMeds() {
+  console.log('Loading meds...', new Date());
   const response = await fetch(API_URL + '?t=' + Date.now(), {
     cache: 'no-store'
   });
