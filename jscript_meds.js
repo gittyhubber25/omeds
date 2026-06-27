@@ -1,3 +1,5 @@
+console.log("JS file loaded");
+
 const API_URL = 'https://script.google.com/macros/s/AKfycbxtugFHePScrkam3b1hdeu869zrbiLGqpS9aGLM0klgD_CYZMPrCJXyhnBnyZC5Rxv2/exec';
 
 console.log('Loading meds...', new Date());
