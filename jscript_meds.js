@@ -16,7 +16,7 @@ async function loadMeds() {
     const button = card.querySelector('button');
     const statusEl = card.querySelector('.status');
     const lastGivenEl = card.querySelector('.last-given');
-    const availableAgainEl = card.querySelector('.available-again');\
+    const availableAgainEl = card.querySelector('.available-again');
     if (statusEl) statusEl.textContent = status;
     if (lastGivenEl) lastGivenEl.textContent = 'Last Given: ' + lastGiven;
     if (availableAgainEl) availableAgainEl.textContent = 'Available Again: ' + availableAgain;
