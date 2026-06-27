@@ -35,6 +35,11 @@ function givePRN(id, hours) {
     alert('Missing PRN hour value for ' + id);
     return;
   }
+  if (!card) return;  
+
+  button.disabled = true;
+  button.textContent = "Updating...";
+
   const card = document.getElementById(id);
   const button = card.querySelector('button');
   const now = new Date();
