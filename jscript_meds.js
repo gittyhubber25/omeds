@@ -55,6 +55,34 @@ function givePRN(id, hours) {
   updateMedication(id, 'NOT READY', lastGivenText, availableAgainText);
 }
 
+async function giveMedication(id) {
+    const card = document.getElementById(id);
+    if (!card) return;
+
+    const button = card.querySelector("button");
+
+    const now = new Date();
+    const timeGiven = formatDateTime(now);
+
+    // Update this page immediately
+    card.classList.remove("pending");
+    card.classList.add("given");
+
+    card.querySelector(".status").textContent = "GIVEN";
+    card.querySelector(".time-given").textContent =
+        "Administered: " + timeGiven;
+
+    if (button) {
+        button.style.display = "none";
+    }
+
+    // Save to Google Sheets
+    await updateScheduledMedication(id, "GIVEN", timeGiven);
+
+    // Refresh everyone
+    setTimeout(loadMeds, 1000);
+}
+
 async function updateMedication(id, status, lastGiven, availableAgain) {
   await fetch(API_URL, {
     method: 'POST',
