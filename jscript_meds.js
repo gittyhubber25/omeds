@@ -114,6 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
   setInterval(loadMeds, 5000);
 });
 
-
+console.log("JS file finished loading");
 window.giveMedication = giveMedication;
 window.givePRN = givePRN;
