@@ -111,3 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
   loadMeds();
   setInterval(loadMeds, 5000);
 });
+
+
+window.giveMedication = giveMedication;
+window.givePRN = givePRN;
